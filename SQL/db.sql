@@ -27,6 +27,7 @@ CREATE TABLE IF NOT EXISTS `accounts` (
   `balance` decimal(18,8) NOT NULL DEFAULT '0.00000000',
   `forward` tinyint(1) NOT NULL DEFAULT '0',
   `forward_to` varchar(64) DEFAULT NULL,
+  `account_type` varchar(64) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 

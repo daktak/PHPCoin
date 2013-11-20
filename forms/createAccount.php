@@ -38,6 +38,14 @@
             <label>Forward to Address</label>
             <input type="text" name="fwdto" size="60" value="" />
         </div>
+       <div class="formLine">
+             <label>Account Type</label>
+	     <select name="account_type">
+	     <?php
+	     for ($x=0; $x < count($coin_list); $x++){
+	     	echo "<option value='".$coin_code[$x]."'>".$coin_code[$x]."</option>".PHP_EOL;
+	     } ?>
+	     </select>
         <div class="formLine">
             <label>&nbsp;</label>
             <input type="submit" value="Create account" />

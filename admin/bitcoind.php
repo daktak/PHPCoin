@@ -4,7 +4,7 @@
 	
 	include("menus/menus.php");
 
-	$info = $b->getinfo();
+	$info = $b[0]->getinfo();
 	
 	//This is a dirty hack, but should go ok until version 9.x
 	if(strlen($info['version']) < 6){
@@ -75,7 +75,7 @@
 		<?php echo $t['nAccounts'];?> (Average: <?php echo round($t['nAccounts'] / $r['nUsers']);?> accounts per user)
 	</div>	
 <?php
-	$waiting = $b->listaccounts(0);
+	$waiting = $b[0]->listaccounts(0);
 	$waitDep = 0;
 	foreach($waiting as $k => $w){
 		if($w > 0 && $k != $config['central_account']['value']) $waitDep += $w;

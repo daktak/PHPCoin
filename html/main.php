@@ -11,7 +11,7 @@ $(function(){
 for ($x=0; $x < count($coin_list); $x++){
 echo "        clip.addEventListener('mouseOver', function (client) {
             clip.setText( $('#btaddress".$x."').html() );
-        });";
+        });".PHP_EOL;
 	}
 ?>
        clip.addEventListener('complete', function (client, text) {
@@ -106,12 +106,14 @@ echo <<<END
         </tr>
 END;
 
-    $sql = "SELECT * FROM movements WHERE account_id = $activeAccounID ORDER BY id DESC LIMIT 0,10";
+    $sql = "SELECT * FROM movements WHERE account_id = $activeAccounID and ORDER BY id DESC LIMIT 0,10";
     $q = mysqli_query($GLOBALS["___mysqli_ston"], $sql);
-    if(!mysqli_num_rows($q)){
+    if(!$q || mysqli_num_rows($q)==0){
 echo "    <tr><td colspan='5' align='center'>nothing to display</td></tr>";
-    }
+    
     $k = 0;
+    }
+    else
     while($r = mysqli_fetch_assoc($q)){
 ?>
      <tr class="listingRow<?php echo $k;?>">
