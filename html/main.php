@@ -28,15 +28,17 @@ echo "        clip.addEventListener('mouseOver', function (client) {
     <label>Name</label> <?php echo $_SESSION['name'];?>
 </div>
 <?php
+    for ($x=0; $x < count($coin_list); $x++){
     $tmp = explode("_",$_SESSION['btaccount']);
     $actAcount = end($tmp);
     $accountBalance = 0;
+    echo "<h3>{$coin_list[$x]}</h3>";
 ?>
 <div class="infoLine">
     <label>Active Account</label>
     <select id="active_account">
 <?php
-    $sql = "SELECT * FROM accounts WHERE uid = {$_SESSION['id']}";
+    $sql = "SELECT * FROM accounts WHERE uid = {$_SESSION['id']} AND account_type = '{$coin_code[$x]}'";
     $q = mysqli_query($GLOBALS["___mysqli_ston"], $sql);
     while($r = mysqli_fetch_assoc($q)){
         if($actAcount == $r['account_id']){
@@ -52,7 +54,6 @@ echo "        clip.addEventListener('mouseOver', function (client) {
       <img src="icon/book--pencil.png" border="0" title="Edit accounts" style="cursor: pointer;" onclick="document.location.href='index.php?f=accounts'" />
 </div>
 <?php
-for ($x=0; $x < count($coin_list); $x++){
 echo "<div class='infoLine'>";
 echo "   <label>".$coin_list[$x]." Network</label>";
 echo "    Blocks: ".$b[$x]->getblockcount();
