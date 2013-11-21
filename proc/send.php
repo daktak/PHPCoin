@@ -1,11 +1,12 @@
 <?php
     defined("_V") || die("Direct access not allowed!");
     $e = array();
-    
+
     isset($_POST['addrto']) && trim($_POST['addrto']) ? $addrto = makeSQLSafe(trim($_POST['addrto'])) : $e[] = "Destination address missing!";
     isset($_POST['amount']) && is_numeric($_POST['amount']) ? $amount = round($_POST['amount'],8) : $e[] = "Amount missing!";
     isset($_POST['pass']) && trim($_POST['pass']) ? $pass = trim($_POST['pass']) : $e[] = "Password missing!";
-    
+    $account_num = trim($_POST['account_type']);
+
     if(empty($e)){
        $sql = "SELECT a.pass, b.salt FROM users AS a, salt AS b WHERE a.id = {$_SESSION['id']} AND b.uid = a.id";
        $q = mysqli_query($GLOBALS["___mysqli_ston"], $sql);
@@ -15,7 +16,7 @@
     }
     
     if(empty($e)){
-        $isValid = $b[0]->validateaddress($addrto);
+        $isValid = $b[$account_num]->validateaddress($addrto);
         if($isValid['isvalid'] != 1) $e[] = "Invalid destination address!";
     }    
     
@@ -41,7 +42,7 @@
     }
     
     if(empty($e)){
-        $system_account = $b[0]->getbalance($config['central_account']['value'],(int)$config['confirmations']['value']);
+        $system_account = $b[$account_num]->getbalance($config['central_account']['value'],(int)$config['confirmations']['value']);
         if($system_account < $amount) $e[] = "Bitcoind has no coins enough to perform the payment! Contact the site admin!";
     }
     
@@ -70,7 +71,7 @@
                     $receiver = mysqli_fetch_assoc($q);  
                     $new_balance = $previous_balance - $amount;    
                     //Get the current block
-                    $cBlock = $b[0]->getblockcount();
+                    $cBlock = $b[$account_num]->getblockcount();
                     mysqli_query($GLOBALS["___mysqli_ston"], "INSERT INTO movements(`account_id`,`dtime`,`description`,`amount`,`credit`,`balance`,`txblock`) VALUES({$account['id']},'".date("Y-m-d H:i:s")."','Payment to $addrto',$amount,0,$new_balance,$cBlock)");
                     mysqli_query($GLOBALS["___mysqli_ston"], "UPDATE accounts SET balance = balance - $amount WHERE id = {$account['id']}"); 
                     //A small issue; if the destination account is forwarded, will not forward to prevent loop attacks.
@@ -90,14 +91,14 @@
         
             }else{
                 //Address is not local!
-                        $txid = $b[0]->sendfrom($config['central_account']['value'],$addrto,$amount,(int)$config['confirmations']['value']);
+                        $txid = $b[$account_num]->sendfrom($config['central_account']['value'],$addrto,$amount,(int)$config['confirmations']['value']);
                         $new_balance = $previous_balance - $amount;    
                         //Get the current block
-                        $cBlock = $b[0]->getblockcount();
+                        $cBlock = $b[$account_num]->getblockcount();
                         mysqli_query($GLOBALS["___mysqli_ston"], "INSERT INTO movements(`account_id`,`dtime`,`description`,`amount`,`credit`,`balance`,`txblock`) VALUES({$account['id']},'".date("Y-m-d H:i:s")."','Payment to $addrto',$amount,0,$new_balance,$cBlock)");
                         mysqli_query($GLOBALS["___mysqli_ston"], "UPDATE accounts SET balance = balance - $amount WHERE id = {$account['id']}");               
                         //Get the transaction info to see what went with fees
-                        $txinfo = $b[0]->gettransaction($txid);
+                        $txinfo = $b[$account_num]->gettransaction($txid);
                         $fee = 0;
                         $fee -= $txinfo['fee'];
                         $new_balance -= $fee;

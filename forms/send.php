@@ -25,24 +25,33 @@
         
     }
 </script>
-<p>The maximum amount you can withdraw is <strong><?php echo number_format($available,8,".",",");?> BTC</strong></p>
+<p>The maximum amount you can withdraw is <strong><?php echo number_format($available,8,".",",");?></strong></p>
 <form method="post" action="index.php" onsubmit="return validateWithdraw(this)">
-<input type="hidden" name="f" value="sendcoins" />
+<input type="hidden" name="f" value="sendcoins">
     <div class="formLine">
         <label>To Address</label>
-        <input id="addrto" type="text" name="addrto" size="60" />
+        <input id="addrto" type="text" name="addrto" size="60">
     </div>
     <div class="formLine">
         <label>Amount</label>
-        <input type="text" style="text-align: right;" name="amount" size="10" /> BTC
+        <input type="text" style="text-align: right;" name="amount" size="10">
     </div>  
         <div class="formLine">
             <label>Your Password</label>
-            <input type="password" name="pass" />
+            <input type="password" name="pass">
         </div>        
+       <div class="formLine">
+             <label>Account Type</label>
+             <select name="account_type">
+             <?php
+             for ($x=0; $x < count($coin_list); $x++){
+                echo "<option value='".$x."'>".$coin_code[$x]."</option>".PHP_EOL;
+             } ?>
+             </select>
+        </div>
         <div class="formLine">
             <label>&nbsp;</label>
-            <input type="submit" value="Send coins" />
-        </div>      
+            <input type="submit" value="Send coins">
+        </div>
 </form>
 </div>

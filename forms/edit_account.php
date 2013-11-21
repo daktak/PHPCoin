@@ -44,6 +44,21 @@
             <label>Your Password</label>
             <input type="password" name="pass" />
         </div>        
+       <div class="formLine">
+             <label>Account Type</label>
+             <select name="account_type">
+             <?php
+             for ($x=0; $x < count($coin_list); $x++){
+                #echo "<option value='".$x."'";
+		if ($account_to_edit['account_type'] == $coin_code[$x]){
+		echo "<option value='".$x."'";
+			echo " selected";
+		echo ">".$coin_code[$x]."</option>".PHP_EOL;
+		}
+		#echo ">".$coin_code[$x]."</option>".PHP_EOL;
+             } ?>
+             </select>
+        </div>
         <div class="formLine">
             <label>&nbsp;</label>
             <input type="submit" value="Update account" />

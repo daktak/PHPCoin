@@ -8,6 +8,7 @@
     isset($_POST['fwdto']) && trim($_POST['fwdto']) ? $fwdto = makeSQLSafe(trim($_POST['fwdto'])) : $fwdto = "";
     isset($_POST['name']) && trim($_POST['name']) ? $name = makeSQLSafe(trim($_POST['name'])) : $e[] = "Account name missing!";
     isset($_POST['pass']) && trim($_POST['pass']) ? $pass = trim($_POST['pass']) : $e[] = "Password missing!";
+    $account_num = trim($_POST['account_type']);
     
     if($fwd == 1 && !$fwdto) $e[] = "You must enter a bitcoin address to forward to!";
     if(empty($e)){
@@ -29,7 +30,7 @@
     }
     
     if(empty($e) && $fwd == 1){
-        $valid = $b->validateaddress($fwdto);
+        $valid = $b[$account_num]->validateaddress($fwdto);
         if($valid['isvalid'] != 1) $e[] = "Invalid address to forward to!";
     }
     if(empty($e)){

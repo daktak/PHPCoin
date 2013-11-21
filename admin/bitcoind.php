@@ -3,8 +3,10 @@
 	if(!isset($_SESSION['is_admin']) || $_SESSION['is_admin'] != 1) die("You're not admin!");
 	
 	include("menus/menus.php");
+	echo '<div id="mainBodyLMenu">';
+	for ($x=0; $x < count($coin_list); $x++) {
 
-	$info = $b[0]->getinfo();
+	$info = $b[$x]->getinfo();
 	
 	//This is a dirty hack, but should go ok until version 9.x
 	if(strlen($info['version']) < 6){
@@ -16,8 +18,8 @@
 		$sub_version = substr($info['version'],1,1);
 		$build = substr($info['version'],2,2);		
 	}
+	echo "<h3>".$coin_list[$x]."</h3>";
 ?>
-<div id="mainBodyLMenu">
 	<div class="infoLine">
 		<label>Version</label>
 		<?php echo "$version.$sub_version.$build";?>
@@ -28,7 +30,7 @@
 	</div>	
 	<div class="infoLine">
 		<label>Balance</label>
-		<?php echo number_format($info['balance'],8,".",",");?> BTC
+		<?php echo number_format($info['balance'],8,".",","); echo " ".$coin_code[$x];?>
 	</div>
 <?php
 	$users_balance = 0;
@@ -41,7 +43,7 @@
 ?>	
 	<div class="infoLine">
 		<label>Difference</label>
-		<?php echo $diff;?> BTC <small>This value should always be zero if everything is ok</small>
+		<?php echo $diff; echo " ".$coin_code[$x];?> <small>This value should always be zero if everything is ok</small>
 	</div>
 	<div class="infoLine">
 		<label>Connections</label>
@@ -75,7 +77,7 @@
 		<?php echo $t['nAccounts'];?> (Average: <?php echo round($t['nAccounts'] / $r['nUsers']);?> accounts per user)
 	</div>	
 <?php
-	$waiting = $b[0]->listaccounts(0);
+	$waiting = $b[$x]->listaccounts(0);
 	$waitDep = 0;
 	foreach($waiting as $k => $w){
 		if($w > 0 && $k != $config['central_account']['value']) $waitDep += $w;
@@ -83,6 +85,7 @@
 ?>	
 	<div class="infoLine">
 		<label>Deposits incomming</label>
-		<?php echo $waitDep;?> BTC
+		<?php echo $waitDep;  echo " ".$coin_code[$x];?> 
 	</div>
+<?php } ?>
 </div>

@@ -46,6 +46,7 @@
 	     	echo "<option value='".$coin_code[$x]."'>".$coin_code[$x]."</option>".PHP_EOL;
 	     } ?>
 	     </select>
+	</div>
         <div class="formLine">
             <label>&nbsp;</label>
             <input type="submit" value="Create account" />
