@@ -1,4 +1,4 @@
-function changeMyAddress(){
+function changeMyAddress(obj,abc){
     $.ajax({
         url:"index.php",
         type:"post",
@@ -8,7 +8,8 @@ function changeMyAddress(){
         },
         success: function(data){
             if(data.substr(0,4) != "ERR"){
-                $("#btaddress").html(data);
+	        $("#btaddress"+abc).html(data);
+
             }else{
                 alert(data.substr(4));
             }
