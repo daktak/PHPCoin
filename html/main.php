@@ -2,7 +2,7 @@
     defined("_V") || die("Direct access not allowed!");
     include("menus/menus.php");
 ?>
-<script language="javascript">
+<script type="text/javascript" language="javascript">
 var clip = null;
 $(function(){
        clip = new ZeroClipboard.Client();
@@ -36,8 +36,8 @@ echo "        clip.addEventListener('mouseOver', function (client) {
 ?>
 <div class="infoLine">
     <label>Active Account</label>
-    <select id="active_account">
 <?php
+    echo "<select id='active_account{$x}'>";
     $sql = "SELECT * FROM accounts WHERE uid = {$_SESSION['id']} AND account_type = '{$coin_code[$x]}'";
     $q = mysqli_query($GLOBALS["___mysqli_ston"], $sql);
     while($r = mysqli_fetch_assoc($q)){
@@ -50,7 +50,7 @@ echo "        clip.addEventListener('mouseOver', function (client) {
 <?php        
     }
 ?>    
-    </select> <img src="icon/arrow.png" border="0" title="Switch to selected account" style="cursor: pointer;" onclick="document.location.href='index.php?f=switchAccount&id=' + document.getElementById('active_account').options[document.getElementById('active_account').options.selectedIndex].value" alt="Switch to selected account">
+    </select> <img src="icon/arrow.png" border="0" title="Switch to selected account" style="cursor: pointer;" onclick="document.location.href='index.php?f=switchAccount&amp;id=' + document.getElementById('active_account').options[document.getElementById('active_account<?php echo $x; ?>').options.selectedIndex].value" alt="Switch to selected account">
       <img src="icon/book--pencil.png" border="0" title="Edit accounts" style="cursor: pointer;" onclick="document.location.href='index.php?f=accounts'" alt="Edit accounts">
 </div>
 <?php
@@ -77,9 +77,9 @@ echo "    <div class='infoLine'>";
 echo "        <label>".$coin_list[$x]." Address</label>";
 echo "<span id='btaddress".$x."'>";
 echo $b[$x]->getaccountaddress($_SESSION['btaccount']);
+echo '</span> <img src="icon/new.png" border="0" title="Get a new address" style="cursor:pointer" onclick="changeMyAddress(this,'.$x.')" alt="Get new address">';
+echo '<img src="icon/clipboard--plus.png" border="0" title="Copy to clipboard" style="cursor: pointer;" id="copyToClip'.$x.'" alt="Copy to clipboard">';
 echo <<<END
-</span> <img src="icon/new.png" border="0" title="Get a new address" style="cursor:pointer" onclick="changeMyAddress(this,'<?php echo $x; ?>')" alt="Get new address">      
-<img src="icon/clipboard--plus.png" border="0" title="Copy to clipboard" style="cursor: pointer;" id="copyToClip" alt="Copy to clipboard">
     </div>
     <div class="infoLine">
         <label>Balance</label>

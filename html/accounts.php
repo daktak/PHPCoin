@@ -16,7 +16,7 @@
 <?php
     if($nrAccounts < $config['user_l_accounts']['value']){
 ?>
-    <input type="button" value="Create new account" onclick="document.location.href='index.php?f=createAccount'" />
+    <input type="button" value="Create new account" onclick="document.location.href='index.php?f=createAccount'">
 <?php
     }
 ?>
@@ -49,7 +49,7 @@
         <td><?php echo $r['forward'] == 1 ? $r['forward_to'] : "<i>not forwarded</i>";?></td>
         <td align="right"><?php echo number_format($r['balance'],8,".",","); echo " ".$coin_code[$x];?></td>
         <td>
-        <img src="icon/blue-document--pencil.png" border="0" title="Edit account" style="cursor: pointer;" onclick="document.location.href='index.php?f=editAccount&account_id=<?php echo $r['id'];?>'" alt="Edit Account">
+        <img src="icon/blue-document--pencil.png" border="0" title="Edit account" style="cursor: pointer;" onclick="document.location.href='index.php?f=editAccount&amp;account_id=<?php echo $r['id'];?>'" alt="Edit Account">
         </td>
     </tr>
 <?php        
