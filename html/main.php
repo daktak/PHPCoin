@@ -50,8 +50,8 @@ echo "        clip.addEventListener('mouseOver', function (client) {
 <?php        
     }
 ?>    
-    </select> <img src="icon/arrow.png" border="0" title="Switch to selected account" style="cursor: pointer;" onclick="document.location.href='index.php?f=switchAccount&id=' + document.getElementById('active_account').options[document.getElementById('active_account').options.selectedIndex].value" />
-      <img src="icon/book--pencil.png" border="0" title="Edit accounts" style="cursor: pointer;" onclick="document.location.href='index.php?f=accounts'" />
+    </select> <img src="icon/arrow.png" border="0" title="Switch to selected account" style="cursor: pointer;" onclick="document.location.href='index.php?f=switchAccount&id=' + document.getElementById('active_account').options[document.getElementById('active_account').options.selectedIndex].value" alt="Switch to selected account">
+      <img src="icon/book--pencil.png" border="0" title="Edit accounts" style="cursor: pointer;" onclick="document.location.href='index.php?f=accounts'" alt="Edit accounts">
 </div>
 <?php
 echo "<div class='infoLine'>";
@@ -61,16 +61,16 @@ echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Connection:";
     $cons = $b[$x]->getconnectioncount();
     if($cons >= 9) $cons = 9;
     switch($cons){
-        case 0: echo '<img src="connection/0.jpg" border="0" title="connection status: offline" />'; break;
-        case 1: echo '<img src="connection/1.jpg" border="0" title="connection status: 1 node" />'; break;
-        case 2: echo '<img src="connection/2.jpg" border="0" title="connection status: 2 nodes" />'; break;
-        case 3: echo '<img src="connection/3.jpg" border="0" title="connection status: 3 nodes" />'; break;
-        case 4: echo '<img src="connection/4.jpg" border="0" title="connection status: 4 nodes" />'; break;
-        case 5: echo '<img src="connection/5.jpg" border="0" title="connection status: 5 nodes" />'; break;
-        case 6: echo '<img src="connection/6.jpg" border="0" title="connection status: 6 nodes" />'; break;
-        case 7: echo '<img src="connection/7.jpg" border="0" title="connection status: 7 nodes" />'; break;
-        case 8: echo '<img src="connection/8.jpg" border="0" title="connection status: 8 nodes" />'; break;
-        case 9: echo '<img src="connection/9.jpg" border="0" title="connection status: 9 or more nodes" />'; break;
+        case 0: echo '<img src="connection/0.jpg" border="0" title="connection status: offline" alt="connection statuts: offline">'; break;
+        case 1: echo '<img src="connection/1.jpg" border="0" title="connection status: 1 node" alt="connection status: 1">'; break;
+        case 2: echo '<img src="connection/2.jpg" border="0" title="connection status: 2 nodes" alt="connection status: 2">'; break;
+        case 3: echo '<img src="connection/3.jpg" border="0" title="connection status: 3 nodes" alt="connection status: 3">'; break;
+        case 4: echo '<img src="connection/4.jpg" border="0" title="connection status: 4 nodes" alt="connection status: 4">'; break;
+        case 5: echo '<img src="connection/5.jpg" border="0" title="connection status: 5 nodes" alt="connection status: 5">'; break;
+        case 6: echo '<img src="connection/6.jpg" border="0" title="connection status: 6 nodes" alt="connection status: 6">'; break;
+        case 7: echo '<img src="connection/7.jpg" border="0" title="connection status: 7 nodes" alt="connection status: 7">'; break;
+        case 8: echo '<img src="connection/8.jpg" border="0" title="connection status: 8 nodes" alt="connection status: 8">'; break;
+        case 9: echo '<img src="connection/9.jpg" border="0" title="connection status: 9 or more nodes" alt="connection status: 9">'; break;
     }
 echo "</div>";
 echo "    <div class='infoLine'>";
@@ -78,8 +78,8 @@ echo "        <label>".$coin_list[$x]." Address</label>";
 echo "<span id='btaddress".$x."'>";
 echo $b[$x]->getaccountaddress($_SESSION['btaccount']);
 echo <<<END
-</span> <img src="icon/new.png" border="0" title="Get a new address" style="cursor:pointer" onclick="changeMyAddress(this,'<?php echo $x; ?>')" />      
-<img src="icon/clipboard--plus.png" border="0" title="Copy to clipboard" style="cursor: pointer;" id="copyToClip" />
+</span> <img src="icon/new.png" border="0" title="Get a new address" style="cursor:pointer" onclick="changeMyAddress(this,'<?php echo $x; ?>')" alt="Get new address">      
+<img src="icon/clipboard--plus.png" border="0" title="Copy to clipboard" style="cursor: pointer;" id="copyToClip" alt="Copy to clipboard">
     </div>
     <div class="infoLine">
         <label>Balance</label>
@@ -92,7 +92,7 @@ END;
 	 echo $coin_code[$x];
 echo <<<END
 </i></small>
-        <img src="icon/wallet--arrow.png" border="0" title="Send coins" style="cursor: pointer;" onclick="document.location.href='index.php?f=send'" />
+        <img src="icon/wallet--arrow.png" border="0" title="Send coins" style="cursor: pointer;" onclick="document.location.href='index.php?f=send'" alt="Send coins">
     </div>
     
     <h2>Last 10 movements</h2>

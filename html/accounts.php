@@ -44,12 +44,12 @@
         <td align="right"><?php echo $r['account_id'];?></td>
         <td><?php echo stripslashes($r['account_name']);?></td>
         <td align="center">
-        <img src="icon/<?php echo $r['forward'] == 1 ? 'tick.png' : 'cross.png';?>" border="0" title="<?php echo $r['forward'] == 1 ? 'Yes' : 'No';?>" />
+        <img src="icon/<?php echo $r['forward'] == 1 ? 'tick.png' : 'cross.png';?>" border="0" title="<?php echo $r['forward'] == 1 ? 'Yes' : 'No';?>" alt="<?php echo $r['forward'] == 1 ? 'Yes' : 'No';?>">
         </td>
         <td><?php echo $r['forward'] == 1 ? $r['forward_to'] : "<i>not forwarded</i>";?></td>
         <td align="right"><?php echo number_format($r['balance'],8,".",","); echo " ".$coin_code[$x];?></td>
         <td>
-        <img src="icon/blue-document--pencil.png" border="0" title="Edit account" style="cursor: pointer;" onclick="document.location.href='index.php?f=editAccount&account_id=<?php echo $r['id'];?>'" />
+        <img src="icon/blue-document--pencil.png" border="0" title="Edit account" style="cursor: pointer;" onclick="document.location.href='index.php?f=editAccount&account_id=<?php echo $r['id'];?>'" alt="Edit Account">
         </td>
     </tr>
 <?php        
