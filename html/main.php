@@ -5,19 +5,20 @@
 <script type="text/javascript" language="javascript">
 var clip = null;
 $(function(){
-       clip = new ZeroClipboard.Client();
-       clip.setHandCursor( true );
 <?php
 for ($x=0; $x < count($coin_list); $x++){
-echo "        clip.addEventListener('mouseOver', function (client) {
-            clip.setText( $('#btaddress".$x."').html() );
+
+echo "       clip{$x} = new ZeroClipboard.Client();".PHP_EOL;
+echo "       clip{$x}.setHandCursor( true );".PHP_EOL;
+echo "        clip{$x}.addEventListener('mouseOver', function (client) {
+            clip{$x}.setText( $('#btaddress".$x."').html() );
         });".PHP_EOL;
-	}
+echo "       clip{$x}.addEventListener('complete', function (client, text) {".PHP_EOL;
+echo '                alert("Done");'.PHP_EOL;
+echo "       });";
+echo "clip{$x}.glue('copyToClip{$x}');".PHP_EOL;
+}
 ?>
-       clip.addEventListener('complete', function (client, text) {
-                alert("Done");
-       });
-       clip.glue('copyToClip');
 });
 </script>
 <div id="mainBodyLMenu">
