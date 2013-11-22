@@ -5,11 +5,23 @@
   $db_pass = ""; //Your database password
   $db_name = ""; //Your database name
   $db_host = "localhost"; //Your database host
-  $coin_list = array("Bitcoin"); //List of Crypto Coin wallets
-  $coin_code = array("BTC"); //List of coin trading codes
-  $btc_user = array(""); //Your bitcoind username (set in rpcusername in bitcoin.conf)
-  $btc_pass = array(""); //Your bitcoind password (set in rpcusername in bitcoin.conf)
+  //You can specify multiple daemons eg
+  //$coin_list = array("Bitcoin", "Namecoin", "Litecoin");
+  //If you add a new coin type, you will need to add a new account for 
+  //that coin type using accounts/create account
+  $coin_list = array("Bitcoin"); 
+  //Specify the trading code, eg
+  //$coin_code = array("BTC","NMC","LTC");
+  $coin_code = array("BTC"); 
+  //specify username from bitcoin.conf for each daemon, eg
+  //btc_user = array("bitcoinrpc", "namecoinrpc", "litecoinrpc");
+  $btc_user = array(""); 
+  //specify each password
+  $btc_pass = array(""); 
+  //Specify each host machine
   $btc_ip = array("127.0.0.1");
+  //specify each port, eg
+  //$btc_port = array("8332","8336","9332");
   $btc_port = array("8332");
   
 //----------------------- NOTHING TO CONFIGURE BELLOW THIS LINE ---------//
