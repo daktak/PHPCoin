@@ -2,19 +2,21 @@
     defined("_V") || die("Direct access not allowed!");
     
     include("menus/menus.php");
-    
-    $sql = "SELECT COUNT(*) AS myAccounts FROM accounts WHERE uid = {$_SESSION['id']}";
+    echo "<div id='mainBodyLMenu'>";
+    echo "<h2>Your accounts</h2>";
+    for ($x=0; $x < count($coin_list); $x++){
+
+    $sql = "SELECT COUNT(*) AS myAccounts FROM accounts WHERE uid = {$_SESSION['id']}"; # AND account_type = '{$coin_code[$x]}'";
     $q = mysqli_query($GLOBALS["___mysqli_ston"], $sql);
     $r = mysqli_fetch_array($q);
     $nrAccounts = $r['myAccounts'];
+    echo "<h3>{$coin_list[$x]}</h3>";
 ?>
-<div id="mainBodyLMenu">
-<h2>Your accounts</h2>
 <div class="buttonsArea">
 <?php
     if($nrAccounts < $config['user_l_accounts']['value']){
 ?>
-    <input type="button" value="Create new account" onclick="document.location.href='index.php?f=createAccount'" />
+    <input type="button" value="Create new account" onclick="document.location.href='index.php?f=createAccount'">
 <?php
     }
 ?>
@@ -29,7 +31,7 @@
         <td>Actions</td>
     </tr>
 <?php
-    $sql = "SELECT * FROM accounts WHERE uid = {$_SESSION['id']} ORDER BY account_id ASC";
+    $sql = "SELECT * FROM accounts WHERE uid = {$_SESSION['id']} AND account_type = '{$coin_code[$x]}' ORDER BY account_id ASC";
     $q = mysqli_query($GLOBALS["___mysqli_ston"], $sql);
     $k = 0;
     $total_accounts = 0;
@@ -42,12 +44,12 @@
         <td align="right"><?php echo $r['account_id'];?></td>
         <td><?php echo stripslashes($r['account_name']);?></td>
         <td align="center">
-        <img src="icon/<?php echo $r['forward'] == 1 ? 'tick.png' : 'cross.png';?>" border="0" title="<?php echo $r['forward'] == 1 ? 'Yes' : 'No';?>" />
+        <img src="icon/<?php echo $r['forward'] == 1 ? 'tick.png' : 'cross.png';?>" border="0" title="<?php echo $r['forward'] == 1 ? 'Yes' : 'No';?>" alt="<?php echo $r['forward'] == 1 ? 'Yes' : 'No';?>">
         </td>
         <td><?php echo $r['forward'] == 1 ? $r['forward_to'] : "<i>not forwarded</i>";?></td>
-        <td align="right"><?php echo number_format($r['balance'],8,".",",");?> BTC</td>
+        <td align="right"><?php echo number_format($r['balance'],8,".",","); echo " ".$coin_code[$x];?></td>
         <td>
-        <img src="icon/blue-document--pencil.png" border="0" title="Edit account" style="cursor: pointer;" onclick="document.location.href='index.php?f=editAccount&account_id=<?php echo $r['id'];?>'" />
+        <img src="icon/blue-document--pencil.png" border="0" title="Edit account" style="cursor: pointer;" onclick="document.location.href='index.php?f=editAccount&amp;account_id=<?php echo $r['id'];?>'" alt="Edit Account">
         </td>
     </tr>
 <?php        
@@ -56,5 +58,8 @@
     }
 ?>    
 </table>
-<h4>Total amount in accounts: <?php echo number_format($total_accounts,8,".",",");?> BTC</h4>
+<h4>Total amount in accounts: <?php echo number_format($total_accounts,8,".",","); echo " ".$coin_code[$x];?></h4>
+<?php
+}
+?>
 </div>

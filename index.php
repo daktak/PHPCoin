@@ -24,7 +24,11 @@
  
  require_once("classes/jsonRPCClient.php");
  
- $b = new jsonRPCClient("http://$btc_user:$btc_pass@$btc_ip:$btc_port");
+ for ($x=0; $x < count($coin_list); $x++) {
+      $b[$x] = new jsonRPCClient("http://$btc_user[$x]:$btc_pass[$x]@$btc_ip[$x]:$btc_port[$x]");
+ }
+ #$b = new jsonRPCClient("http://$btc_user:$btc_pass@$btc_ip:$btc_port");
+
  if(!isset($_SESSION['btaccount'])) $_SESSION['btaccount'] = $config['account_prefix']['value'] ."_" . $_SESSION['id'] . "_1";
  $pg = "";
  switch($f){

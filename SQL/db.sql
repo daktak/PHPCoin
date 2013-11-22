@@ -27,6 +27,7 @@ CREATE TABLE IF NOT EXISTS `accounts` (
   `balance` decimal(18,8) NOT NULL DEFAULT '0.00000000',
   `forward` tinyint(1) NOT NULL DEFAULT '0',
   `forward_to` varchar(64) DEFAULT NULL,
+  `account_type` varchar(64) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
@@ -53,7 +54,7 @@ INSERT INTO `config` (`key`, `value`, `explain`) VALUES
 ('account_prefix', 'PC', 'How to prefix accounts in bitcoind (eg. PC will result in PC_userid_account#)'),
 ('confirmations', '6', 'Number of block confirmations before make a deposit effective'),
 ('central_account', 'PC_MAIN', 'The bitcoin account that holds all the coins'),
-('user_l_accounts', '5', 'The maximum allowed accounts associated with a single login');
+('user_l_accounts', '15', 'The maximum allowed accounts associated with a single login');
 
 -- --------------------------------------------------------
 

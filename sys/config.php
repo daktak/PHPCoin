@@ -5,10 +5,12 @@
   $db_pass = ""; //Your database password
   $db_name = ""; //Your database name
   $db_host = "localhost"; //Your database host
-  $btc_user = ""; //Your bitcoind username (set in rpcusername in bitcoin.conf)
-  $btc_pass = ""; //Your bitcoind password (set in rpcusername in bitcoin.conf)
-  $btc_ip = "127.0.0.1";
-  $btc_port = "8332";
+  $coin_list = array("Bitcoin"); //List of Crypto Coin wallets
+  $coin_code = array("BTC"); //List of coin trading codes
+  $btc_user = array(""); //Your bitcoind username (set in rpcusername in bitcoin.conf)
+  $btc_pass = array(""); //Your bitcoind password (set in rpcusername in bitcoin.conf)
+  $btc_ip = array("127.0.0.1");
+  $btc_port = array("8332");
   
 //----------------------- NOTHING TO CONFIGURE BELLOW THIS LINE ---------//
   ($GLOBALS["___mysqli_ston"] = mysqli_connect($db_host, $db_user, $db_pass)) || die("Unable to connect to DB!");

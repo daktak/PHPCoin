@@ -1,9 +1,9 @@
 <?php
     defined("_V") || die("Direct access not allowed!");
-    
+
     $e = array();
-    
-    $sql = "SELECT COUNT(*) AS myAccounts FROM accounts WHERE uid = {$_SESSION['id']}";
+    $account_type= makeSQLSafe(trim($_POST['account_type'])); 
+    $sql = "SELECT COUNT(*) AS myAccounts FROM accounts WHERE uid = {$_SESSION['id']} and account_type = '{$account_type}'";
     $q = mysqli_query($GLOBALS["___mysqli_ston"], $sql);
     $r = mysqli_fetch_array($q);
     $nrAccounts = $r['myAccounts'];
@@ -16,7 +16,7 @@
         isset($_POST['fwdto']) && trim($_POST['fwdto']) ? $fwdto = makeSQLSafe(trim($_POST['fwdto'])) : $fwdto = "";
     }
     
-    if($fwd == 1 && !$fwdto) $e[] = "You must enter a bitcoin address to forward to!";
+    if($fwd == 1 && !$fwdto) $e[] = "You must enter a {$account_type} address to forward to!";
     
     if(empty($e)){
         $sql = "SELECT * FROM accounts WHERE account_name LIKE '$name' AND uid = {$_SESSION['id']}"; ## AND id != $aid";
@@ -25,7 +25,7 @@
     }    
     
     if(empty($e) && $fwd == 1){
-        $valid = $b->validateaddress($fwdto);
+        $valid = $b[$x]->validateaddress($fwdto);
         if($valid['isvalid'] != 1) $e[] = "Invalid address to forward to!";
     }
     
@@ -41,10 +41,11 @@
         $c[] = "`balance`"; $v[] = 0;
         $c[] = "`forward`"; $v[] = $fwd;
         $c[] = "`forward_to`"; $v[] = "'$fwdto'";
+	$c[] = "`account_type`"; $v[] = "'$account_type'";
         $sql = "INSERT INTO accounts(".implode(",",$c).") VALUES(".implode(",",$v).")";
         mysqli_query($GLOBALS["___mysqli_ston"], $sql);
         $success = "Account created!";
     }else{
         $error = implode("<br/>",$e);
-    }    
+    }
 ?>

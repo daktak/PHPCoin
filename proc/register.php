@@ -35,7 +35,9 @@
        mysqli_query($GLOBALS["___mysqli_ston"], "INSERT INTO users(user,pass,name,email) VALUES('$user','$passh','$name','$email')");
        $myuid = ((is_null($___mysqli_res = mysqli_insert_id($GLOBALS["___mysqli_ston"]))) ? false : $___mysqli_res);
        mysqli_query($GLOBALS["___mysqli_ston"], "INSERT INTO salt(uid,salt) VALUES($myuid,'$salt')");
-       mysqli_query($GLOBALS["___mysqli_ston"], "INSERT INTO accounts(uid,account_id,account_name) VALUES($myuid,1,'Default')");
+       for ($x=0; $x < count($coin_list); $x++) {
+       	mysqli_query($GLOBALS["___mysqli_ston"], "INSERT INTO accounts(uid,account_id,account_name,account_type) VALUES($myuid,1,'$coin_code[$x]Default','$coin_code[$x]')");
+       }
        $success = "You're now registered to this system";
        $_SESSION['id'] = $myuid;
        $_SESSION['user'] = $user;

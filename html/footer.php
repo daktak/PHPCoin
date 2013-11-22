@@ -1,3 +1,5 @@
 <?php
     defined("_V") || die("Direct access not allowed!");
 ?>
+</body>
+</html>

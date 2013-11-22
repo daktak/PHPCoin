@@ -7,7 +7,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta http-equiv="Lang" content="en">
 <title>PHPCoin</title>
-<link rel="stylesheet" type="text/css" href="css/<?php echo $config['css_template']['value'];?>/style.css" />
+<link rel="stylesheet" type="text/css" href="css/<?php echo $config['css_template']['value'];?>/style.css">
 <script type="text/javascript" src="js/jquery.min.js"></script> 
 <script type="text/javascript" src="js/ZeroClipboard.js"></script>
 <script type="text/javascript" src="js/phpcoin.js"></script>
