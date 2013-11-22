@@ -39,7 +39,7 @@ echo "clip{$x}.glue('copyToClip{$x}');".PHP_EOL;
 <div class="infoLine">
     <label>Active Account</label>
 <?php
-    echo "<select id='active_account{$x}'>";
+    echo "<select id='active_account'>";
     $sql = "SELECT * FROM accounts WHERE uid = {$_SESSION['id']} order by account_type"; # AND account_type = '{$coin_code[$x]}'";
     $q = mysqli_query($GLOBALS["___mysqli_ston"], $sql);
     while($r = mysqli_fetch_assoc($q)){
@@ -53,7 +53,7 @@ echo "clip{$x}.glue('copyToClip{$x}');".PHP_EOL;
 <?php        
     }
 ?>    
-    </select> <img src="icon/arrow.png" border="0" title="Switch to selected account" style="cursor: pointer;" onclick="document.location.href='index.php?f=switchAccount&amp;id=' + document.getElementById('active_account<?php echo $x; ?>').options[document.getElementById('active_account<?php echo $x; ?>').options.selectedIndex].value" alt="Switch to selected account">
+    </select> <img src="icon/arrow.png" border="0" title="Switch to selected account" style="cursor: pointer;" onclick="document.location.href='index.php?f=switchAccount&amp;id=' + document.getElementById('active_account').options[document.getElementById('active_account').options.selectedIndex].value" alt="Switch to selected account">
       <img src="icon/book--pencil.png" border="0" title="Edit accounts" style="cursor: pointer;" onclick="document.location.href='index.php?f=accounts'" alt="Edit accounts">
 </div>
 <?php
