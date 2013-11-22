@@ -29,7 +29,7 @@
  }
  #$b = new jsonRPCClient("http://$btc_user:$btc_pass@$btc_ip:$btc_port");
 
- if(!isset($_SESSION['btaccount'])) $_SESSION['btaccount'] = $config['account_prefix']['value'] ."_" . $_SESSION['id'] . "_1";
+ if(!isset($_SESSION['btaccount'])) $_SESSION['btaccount'] = $config['account_prefix']['value'] ."_" . $_SESSION['id'] . "_1"; $_SESSION['wallet'] = 0;
  $pg = "";
  switch($f){
      case 'updateBasicInfo': include("proc/updateBasicInfo.php"); $pg = "html/main.php"; break;

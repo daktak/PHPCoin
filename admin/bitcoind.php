@@ -68,7 +68,7 @@
 		<?php echo $r['nUsers'];?>
 	</div>	
 <?php
-	$sql = "SELECT COUNT(*) AS nAccounts FROM accounts";
+	$sql = "SELECT COUNT(*) AS nAccounts FROM accounts where account_type = '{$coin_code[$x]}'";
 	$q = mysqli_query($GLOBALS["___mysqli_ston"], $sql);
 	$t = mysqli_fetch_array($q);	
 ?>	

@@ -9,6 +9,12 @@
         $sql = "SELECT * FROM accounts WHERE account_id = $id AND uid = {$_SESSION['id']} LIMIT 0,1";
         $q = mysqli_query($GLOBALS["___mysqli_ston"], $sql);
         if(!mysqli_num_rows($q)) $e[] = "Account not found!";
+	$mu = mysqli_fetch_assoc($q);
+	for ($x=0; $x < count($coin_list); $x++) {
+	    if ($mu['account_type'] == $coin_code[$x]) {
+	        $_SESSION['wallet'] = $x;
+	    }
+	}
     }
     
     if(empty($e)){
