@@ -7,7 +7,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta http-equiv="Lang" content="en">
 <title>PHPCoin Login</title>
-<link rel="stylesheet" type="text/css" href="css/<?php echo $config['css_template']['value'];?>/login.css" />
+<link rel="stylesheet" type="text/css" href="css/<?php echo $config['css_template']['value'];?>/login.css">
 </head>
 <body>
 <?php
@@ -67,18 +67,18 @@
     <div id="loginLogo"></div>
     <div id="loginForm">
     <form method="post" id="loginFormForm" action="index.php">
-    <input type="hidden" name="f" value="login" />
+    <input type="hidden" name="f" value="login">
         <div class="formLine">
             <label for="user">Username</label>
-            <input type="text" name="user" id="user" class="inputText" />
+            <input type="text" name="user" id="user" class="inputText">
         </div>
         <div class="formLine">
             <label for="pass">Password</label>
-            <input type="password" name="pass" id="pass" class="inputText" />
+            <input type="password" name="pass" id="pass" class="inputText">
         </div>        
         <div class="formLine">
             <label>&nbsp;</label>
-            <input type="button" value="Log In" onclick="doLogin()" id="btnSubmit" class="inputButton" />
+            <input type="button" value="Log In" onclick="doLogin()" id="btnSubmit" class="inputButton">
         </div>
      </form>                   
     </div>
@@ -87,30 +87,30 @@
 ?>
    <div id="registerForm">
     <form method="post" id="registerFormForm" action="index.php">
-    <input type="hidden" name="f" value="register" />   
+    <input type="hidden" name="f" value="register">   
         <div class="formLine">
             <label for="userReg">Username</label>
-            <input type="text" name="user" id="userReg" class="inputText" />
+            <input type="text" name="user" id="userReg" class="inputText">
         </div>
         <div class="formLine">
             <label for="passReg">Password</label>
-            <input type="password" name="pass" id="passReg" class="inputText" />
+            <input type="password" name="pass" id="passReg" class="inputText">
         </div>        
         <div class="formLine">
             <label for="pass2">Repeat Password</label>
-            <input type="password" name="pass2" id="pass2" class="inputText" />
+            <input type="password" name="pass2" id="pass2" class="inputText">
         </div>                
         <div class="formLine">
             <label for="name">Name</label>
-            <input type="text" name="name" id="name" class="inputTextLong" />
+            <input type="text" name="name" id="name" class="inputTextLong">
         </div>        
         <div class="formLine">
             <label for="email">Email</label>
-            <input type="text" name="email" id="email" class="inputText" />
+            <input type="text" name="email" id="email" class="inputText">
         </div>                
         <div class="formLine">
             <label>&nbsp;</label>
-            <input type="button" value="Register" onclick="doRegister()" id="submitReg" class="inputButton" />
+            <input type="button" value="Register" onclick="doRegister()" id="submitReg" class="inputButton">
         </div>
        </form>    
    </div>
