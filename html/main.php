@@ -59,34 +59,33 @@ echo "clip{$x}.glue('copyToClip{$x}');".PHP_EOL;
 <?php
 for ($x=0; $x < count($coin_list); $x++){
 if ($coin_code[$x]==$activeCoin) {
-echo "<h3>{$coin_list[$x]}</h3>";
-
-echo "<div class='infoLine'>";
-echo "   <label>".$coin_list[$x]." Network</label>";
+echo "<h3>{$coin_list[$x]}</h3>".PHP_EOL;
+echo "<div class='infoLine'>".PHP_EOL;
+echo "   <label>".$coin_list[$x]." Network</label>".PHP_EOL;
 $cBlock = $b[$x]->getblockcount(); 
 echo "    Blocks: ".$cBlock;
 echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Connection:";
     $cons = $b[$x]->getconnectioncount();
     if($cons >= 9) $cons = 9;
     switch($cons){
-        case 0: echo '<img src="connection/0.jpg" border="0" title="connection status: offline" alt="connection statuts: offline">'; break;
-        case 1: echo '<img src="connection/1.jpg" border="0" title="connection status: 1 node" alt="connection status: 1">'; break;
+        case 0: echo '<img src="connection/0.jpg" border="0" title="connection status: offline" alt="connection statuts: offline">'.PHP_EOL; break;
+        case 1: echo '<img src="connection/1.jpg" border="0" title="connection status: 1 node" alt="connection status: 1">'.PHP_EOL; break;
         case 2: echo '<img src="connection/2.jpg" border="0" title="connection status: 2 nodes" alt="connection status: 2">'; break;
-        case 3: echo '<img src="connection/3.jpg" border="0" title="connection status: 3 nodes" alt="connection status: 3">'; break;
-        case 4: echo '<img src="connection/4.jpg" border="0" title="connection status: 4 nodes" alt="connection status: 4">'; break;
-        case 5: echo '<img src="connection/5.jpg" border="0" title="connection status: 5 nodes" alt="connection status: 5">'; break;
-        case 6: echo '<img src="connection/6.jpg" border="0" title="connection status: 6 nodes" alt="connection status: 6">'; break;
-        case 7: echo '<img src="connection/7.jpg" border="0" title="connection status: 7 nodes" alt="connection status: 7">'; break;
-        case 8: echo '<img src="connection/8.jpg" border="0" title="connection status: 8 nodes" alt="connection status: 8">'; break;
-        case 9: echo '<img src="connection/9.jpg" border="0" title="connection status: 9 or more nodes" alt="connection status: 9">'; break;
+        case 3: echo '<img src="connection/3.jpg" border="0" title="connection status: 3 nodes" alt="connection status: 3">'.PHP_EOL; break;
+        case 4: echo '<img src="connection/4.jpg" border="0" title="connection status: 4 nodes" alt="connection status: 4">'.PHP_EOL; break;
+        case 5: echo '<img src="connection/5.jpg" border="0" title="connection status: 5 nodes" alt="connection status: 5">'.PHP_EOL; break;
+        case 6: echo '<img src="connection/6.jpg" border="0" title="connection status: 6 nodes" alt="connection status: 6">'.PHP_EOL; break;
+        case 7: echo '<img src="connection/7.jpg" border="0" title="connection status: 7 nodes" alt="connection status: 7">'.PHP_EOL; break;
+        case 8: echo '<img src="connection/8.jpg" border="0" title="connection status: 8 nodes" alt="connection status: 8">'.PHP_EOL; break;
+        case 9: echo '<img src="connection/9.jpg" border="0" title="connection status: 9 or more nodes" alt="connection status: 9">'.PHP_EOL; break;
     }
-echo "</div>";
-echo "    <div class='infoLine'>";
-echo "        <label>".$coin_list[$x]." Address</label>";
-echo "<span id='btaddress".$x."'>";
+echo "</div>".PHP_EOL;
+echo "    <div class='infoLine'>".PHP_EOL;
+echo "        <label>".$coin_list[$x]." Address</label>".PHP_EOL;
+echo "<span id='btaddress".$x."'>".PHP_EOL;
 echo $b[$x]->getaccountaddress($_SESSION['btaccount']);
-echo '</span> <img src="icon/new.png" border="0" title="Get a new address" style="cursor:pointer" onclick="changeMyAddress(this,'.$x.')" alt="Get new address">';
-echo '<img src="icon/clipboard--plus.png" border="0" title="Copy to clipboard" style="cursor: pointer;" id="copyToClip'.$x.'" alt="Copy to clipboard">';
+echo '</span> <img src="icon/new.png" border="0" title="Get a new address" style="cursor:pointer" onclick="changeMyAddress(this,'.$x.')" alt="Get new address">'.PHP_EOL;
+echo '<img src="icon/clipboard--plus.png" border="0" title="Copy to clipboard" style="cursor: pointer;" id="copyToClip'.$x.'" alt="Copy to clipboard">'.PHP_EOL;
 echo <<<END
     </div>
     <div class="infoLine">
@@ -121,7 +120,7 @@ END;
     $sql = "SELECT * FROM movements WHERE account_id = '".trim($activeAccounID)."' ORDER BY id DESC LIMIT 0,10";
     $q = mysqli_query($GLOBALS["___mysqli_ston"], $sql);
     if(!$q || mysqli_num_rows($q)==0){
-	echo "    <tr><td colspan='5' align='center'>nothing to display</td></tr>";
+	echo "    <tr><td colspan='5' align='center'>nothing to display</td></tr>".PHP_EOL;
     }
     else
     while($r = mysqli_fetch_assoc($q)){
