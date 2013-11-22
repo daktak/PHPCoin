@@ -35,6 +35,14 @@
     <div class="formLine">
         <label>Amount</label>
         <input type="text" style="text-align: right;" name="amount" size="10">
+	<?php 
+            for ($x=0; $x < count($coin_list); $x++){
+               if ($account_to_edit['account_type'] == $coin_code[$x]){
+                echo $coin_code[$x];
+                }
+        }
+
+	?>
     </div>  
         <div class="formLine">
             <label>Your Password</label>
@@ -45,7 +53,13 @@
              <select name="account_type">
              <?php
              for ($x=0; $x < count($coin_list); $x++){
-                echo "<option value='".$x."'>".$coin_code[$x]."</option>".PHP_EOL;
+               if ($account_to_edit['account_type'] == $coin_code[$x]){
+                echo "<option value='".$x."'";
+                        echo " selected";
+                echo ">".$coin_code[$x]."</option>".PHP_EOL;
+                }
+
+                #echo "<option value='".$x."'>".$coin_code[$x]."</option>".PHP_EOL;
              } ?>
              </select>
         </div>

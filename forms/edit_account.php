@@ -19,9 +19,24 @@
 <div id="mainBodyLMenu">
     <h2>Editing Account</h2>
       <p>NOTE:<br/>
-      if you activate funds forwarding to an address outside this server, upon forwarding a bitcoin network fee of 0.0005 BTC will be held.<br/>
+      if you activate funds forwarding to an address outside this server, upon forwarding a bitcoin network fee of 0.0005 
+      <?php
+            for ($x=0; $x < count($coin_list); $x++){
+                if ($account_to_edit['account_type'] == $coin_code[$x]){
+                echo $coin_code[$x];
+                }
+             } ?>
+      
+      will be held.<br/>
       If the transfer didn't pay fee, the held funds will remain in your account.<br/>
-      Transfers bellow 0.0005 BTC will not be forwarded!</p>
+      Transfers bellow 0.0005 
+      <?php
+            for ($x=0; $x < count($coin_list); $x++){
+                if ($account_to_edit['account_type'] == $coin_code[$x]){
+                echo $coin_code[$x];
+                }
+             } ?>
+      will not be forwarded!</p>
     <form action="index.php" method="post" onsubmit="return updateSettings(this)">
     <input type="hidden" name="f" value="updateAccount" />
     <input type="hidden" name="account_id" value="<?php echo $aid;?>" />

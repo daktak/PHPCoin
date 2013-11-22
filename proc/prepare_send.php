@@ -15,6 +15,11 @@
     if($available <= 0) $e[] = "You've no funds to withdraw!";
   }
   if(empty($e)){
+        $sql = "SELECT * FROM accounts WHERE uid = {$_SESSION['id']} and account_id = {$act[2]}";
+        $q = mysqli_query($GLOBALS["___mysqli_ston"], $sql);
+        if(!mysqli_num_rows($q)) $e[] = "Account not found!";
+
+      $account_to_edit = mysqli_fetch_assoc($q);
       $pg = "forms/send.php";
   }else{
       $error = implode("<br/>",$e);

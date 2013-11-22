@@ -29,32 +29,38 @@ echo "clip{$x}.glue('copyToClip{$x}');".PHP_EOL;
     <label>Name</label> <?php echo $_SESSION['name'];?>
 </div>
 <?php
-    for ($x=0; $x < count($coin_list); $x++){
+    #for ($x=0; $x < count($coin_list); $x++){
     $tmp = explode("_",$_SESSION['btaccount']);
     $actAcount = end($tmp);
     $accountBalance = 0;
-    echo "<h3>{$coin_list[$x]}</h3>";
+    $activeAccounID = 0;
+    #echo "<h3>{$coin_list[$x]}</h3>";
 ?>
 <div class="infoLine">
     <label>Active Account</label>
 <?php
     echo "<select id='active_account{$x}'>";
-    $sql = "SELECT * FROM accounts WHERE uid = {$_SESSION['id']} AND account_type = '{$coin_code[$x]}'";
+    $sql = "SELECT * FROM accounts WHERE uid = {$_SESSION['id']}"; # AND account_type = '{$coin_code[$x]}'";
     $q = mysqli_query($GLOBALS["___mysqli_ston"], $sql);
     while($r = mysqli_fetch_assoc($q)){
         if($actAcount == $r['account_id']){
          $accountBalance = $r['balance'];
          $activeAccounID = $r['id'];
+	 $activeCoin = $r['account_type'];
         }
 ?>
-  <option value="<?php echo $r['account_id'];?>"<?php if($actAcount == $r['account_id']) echo " selected"?>><?php echo stripslashes($r['account_name']);?></option>
+  <option value="<?php echo $r['account_id'];?>"<?php if($actAcount == $r['account_id']) echo " selected"?>><?php echo stripslashes($r['account_name'])." ".$r['account_type'];?></option>
 <?php        
     }
 ?>    
-    </select> <img src="icon/arrow.png" border="0" title="Switch to selected account" style="cursor: pointer;" onclick="document.location.href='index.php?f=switchAccount&amp;id=' + document.getElementById('active_account').options[document.getElementById('active_account<?php echo $x; ?>').options.selectedIndex].value" alt="Switch to selected account">
+    </select> <img src="icon/arrow.png" border="0" title="Switch to selected account" style="cursor: pointer;" onclick="document.location.href='index.php?f=switchAccount&amp;id=' + document.getElementById('active_account<?php echo $x; ?>').options[document.getElementById('active_account<?php echo $x; ?>').options.selectedIndex].value" alt="Switch to selected account">
       <img src="icon/book--pencil.png" border="0" title="Edit accounts" style="cursor: pointer;" onclick="document.location.href='index.php?f=accounts'" alt="Edit accounts">
 </div>
 <?php
+for ($x=0; $x < count($coin_list); $x++){
+if ($coin_code[$x]==$activeCoin) {
+echo "<h3>{$coin_list[$x]}</h3>";
+
 echo "<div class='infoLine'>";
 echo "   <label>".$coin_list[$x]." Network</label>";
 echo "    Blocks: ".$b[$x]->getblockcount();
@@ -95,7 +101,11 @@ echo <<<END
 </i></small>
         <img src="icon/wallet--arrow.png" border="0" title="Send coins" style="cursor: pointer;" onclick="document.location.href='index.php?f=send'" alt="Send coins">
     </div>
-    
+END;
+#if ($activeAccounID <> 0) {
+}
+}
+echo <<<END
     <h2>Last 10 movements</h2>
     <table class="listingTable">
         <tr class="listingHeader">
@@ -107,16 +117,14 @@ echo <<<END
             <td>Balance</td>
         </tr>
 END;
-
-    $sql = "SELECT * FROM movements WHERE account_id = $activeAccounID and ORDER BY id DESC LIMIT 0,10";
+    $sql = "SELECT * FROM movements WHERE account_id = '".trim($activeAccounID)."' ORDER BY id DESC LIMIT 0,10";
     $q = mysqli_query($GLOBALS["___mysqli_ston"], $sql);
     if(!$q || mysqli_num_rows($q)==0){
-echo "    <tr><td colspan='5' align='center'>nothing to display</td></tr>";
-    
-    $k = 0;
+	echo "    <tr><td colspan='5' align='center'>nothing to display</td></tr>";
     }
     else
     while($r = mysqli_fetch_assoc($q)){
+      $k = 0;
 ?>
      <tr class="listingRow<?php echo $k;?>">
         <td><?php echo $r['dtime'];?></td>
@@ -132,6 +140,7 @@ echo "    <tr><td colspan='5' align='center'>nothing to display</td></tr>";
 ?>    
     </table>    
 <?php
-}
+#}
+#}
 ?>
 </div>
