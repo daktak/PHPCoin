@@ -40,7 +40,7 @@ echo "clip{$x}.glue('copyToClip{$x}');".PHP_EOL;
     <label>Active Account</label>
 <?php
     echo "<select id='active_account{$x}'>";
-    $sql = "SELECT * FROM accounts WHERE uid = {$_SESSION['id']}"; # AND account_type = '{$coin_code[$x]}'";
+    $sql = "SELECT * FROM accounts WHERE uid = {$_SESSION['id']} order by account_type"; # AND account_type = '{$coin_code[$x]}'";
     $q = mysqli_query($GLOBALS["___mysqli_ston"], $sql);
     while($r = mysqli_fetch_assoc($q)){
         if($actAcount == $r['account_id']){
@@ -63,7 +63,8 @@ echo "<h3>{$coin_list[$x]}</h3>";
 
 echo "<div class='infoLine'>";
 echo "   <label>".$coin_list[$x]." Network</label>";
-echo "    Blocks: ".$b[$x]->getblockcount();
+$cBlock = $b[$x]->getblockcount(); 
+echo "    Blocks: ".$cBlock;
 echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Connection:";
     $cons = $b[$x]->getconnectioncount();
     if($cons >= 9) $cons = 9;

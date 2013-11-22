@@ -54,7 +54,7 @@ INSERT INTO `config` (`key`, `value`, `explain`) VALUES
 ('account_prefix', 'PC', 'How to prefix accounts in bitcoind (eg. PC will result in PC_userid_account#)'),
 ('confirmations', '6', 'Number of block confirmations before make a deposit effective'),
 ('central_account', 'PC_MAIN', 'The bitcoin account that holds all the coins'),
-('user_l_accounts', '5', 'The maximum allowed accounts associated with a single login');
+('user_l_accounts', '15', 'The maximum allowed accounts associated with a single login');
 
 -- --------------------------------------------------------
 
