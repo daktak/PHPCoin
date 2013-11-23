@@ -34,7 +34,7 @@
 	</div>
 <?php
 	$users_balance = 0;
-	$sql = "SELECT `balance` FROM accounts";
+	$sql = "SELECT `balance` FROM accounts WHERE account_type = '".$coin_code[$x]."'";
 	$q = mysqli_query($GLOBALS["___mysqli_ston"], $sql);
 	while($r = mysqli_fetch_assoc($q)){
 		$users_balance += $r['balance'];
