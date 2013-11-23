@@ -5,3 +5,6 @@ Requires bitcoind/litecoind, php with mysqli, mysql and a web server.
 
 Allows multiple users to manage multiple wallets and payments.
 
+![screenshot](https://github.com/daktak/PHPCoin/screenshots/main.png)
+
+![screenshot](https://github.com/daktak/PHPCoin/screenshots/accounts.png)
