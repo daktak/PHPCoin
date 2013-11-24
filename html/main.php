@@ -2,25 +2,6 @@
     defined("_V") || die("Direct access not allowed!");
     include("menus/menus.php");
 ?>
-<script type="text/javascript" language="javascript">
-var clip = null;
-$(function(){
-<?php
-for ($x=0; $x < count($coin_list); $x++){
-
-echo "       clip{$x} = new ZeroClipboard.Client();".PHP_EOL;
-echo "       clip{$x}.setHandCursor( true );".PHP_EOL;
-echo "        clip{$x}.addEventListener('mouseOver', function (client) {
-            clip{$x}.setText( $('#btaddress".$x."').html() );
-        });".PHP_EOL;
-echo "       clip{$x}.addEventListener('complete', function (client, text) {".PHP_EOL;
-echo '                alert("Done");'.PHP_EOL;
-echo "       });";
-echo "clip{$x}.glue('copyToClip{$x}');".PHP_EOL;
-}
-?>
-});
-</script>
 <div id="mainBodyLMenu">
 <div class="infoLine">
     <label>User</label> <?php echo $_SESSION['user'];?>
@@ -85,7 +66,25 @@ echo "        <label>".$coin_list[$x]." Address</label>".PHP_EOL;
 echo "<span id='btaddress".$x."'>".PHP_EOL;
 echo $b[$x]->getaccountaddress($_SESSION['btaccount']);
 echo '</span> <img src="icon/new.png" border="0" title="Get a new address" style="cursor:pointer" onclick="changeMyAddress(this,'.$x.')" alt="Get new address">'.PHP_EOL;
-echo '<img src="icon/clipboard--plus.png" border="0" title="Copy to clipboard" style="cursor: pointer;" id="copyToClip'.$x.'" alt="Copy to clipboard">'.PHP_EOL;
+echo <<<END
+<script type="text/javascript" language="javascript">
+var clip = null
+$(function(){
+       clip = new ZeroClipboard.Client();
+       clip.setHandCursor( true );
+        clip.addEventListener('mouseOver', function (client) {
+END;
+echo PHP_EOL."            clip.setText( $('#btaddress{$x}').html() );".PHP_EOL;
+echo <<<END
+        });
+       clip.addEventListener('complete', function (client, text) {
+                alert("Done");
+       });
+       clip.glue('copyToClip');
+});
+</script>
+END;
+echo '<img src="icon/clipboard--plus.png" border="0" title="Copy to clipboard" style="cursor: pointer;" id="copyToClip" alt="Copy to clipboard">'.PHP_EOL;
 echo <<<END
     </div>
     <div class="infoLine">
