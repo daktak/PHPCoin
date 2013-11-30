@@ -96,6 +96,7 @@ END;
 	 echo " ".$coin_code[$x]."</strong>  <small><i>";
 	 echo number_format($b[$x]->getbalance($_SESSION['btaccount'],0),8,".",".");
 	 echo $coin_code[$x];
+	 $coin_sufx = $coin_code[$x];
 echo <<<END
 </i></small>
         <img src="icon/wallet--arrow.png" border="0" title="Send coins" style="cursor: pointer;" onclick="document.location.href='index.php?f=send'" alt="Send coins">
@@ -129,9 +130,9 @@ END;
         <td><?php echo $r['dtime'];?></td>
         <td><?php echo stripslashes($r['description']);?></td>
         <td align="right"><?php echo $r['txblock'];?> (<?php echo $cBlock - $r['txblock'];?> conf.)</td>
-        <td align="right"><?php echo $r['credit'] == 1 ? "&nbsp;" : number_format($r['amount'],8,".",",") . " ".$coin_code[$x];?></td>
-        <td align="right"><?php echo $r['credit'] == 0 ? "&nbsp;" : number_format($r['amount'],8,".",",") . " ".$coin_code[$x];?></td>
-        <td align="right"><?php echo number_format($r['balance'],8,".",",") . " ".$coin_code[$x];?></td>
+        <td align="right"><?php echo $r['credit'] == 1 ? "&nbsp;" : number_format($r['amount'],8,".",",") . " ".$coin_sufx;?></td>
+        <td align="right"><?php echo $r['credit'] == 0 ? "&nbsp;" : number_format($r['amount'],8,".",",") . " ".$coin_sufx;?></td>
+        <td align="right"><?php echo number_format($r['balance'],8,".",",") . " ".$coin_sufx;?></td>
      </tr>
 <?php        
         $k = 1 - $k;

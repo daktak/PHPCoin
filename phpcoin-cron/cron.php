@@ -1,7 +1,9 @@
 <?php
   define("_V",1);
   //This file must NOT be accessible from the Web!
-  $coin_install_path = "/web/default/public_html";
+  $cron_dir = substr(__FILE__, 0, strrpos(__FILE__, '/'));
+  $coin_install_path = substr($cron_dir,0,strrpos($cron_dir,'/'));
+
   include($coin_install_path ."/sys/config.php");
   include($coin_install_path ."/inc/general_functions.php");
   error_reporting(E_ALL);
@@ -80,7 +82,7 @@
           }else{
                     $txamount = $a - 0.0005;
                     if($txamount < 0){
-                       mysqli_query($GLOBALS["___mysqli_ston"], "INSERT INTO messages(`uid`,`dtime`,`message`) VALUES({$acc[1]},'".date("Y-m-d H:i:s")."','ERROR Funds to forward aren\'t enough to pay the bitcoin network fee. Amount remains in your account!')");                             
+                       mysqli_query($GLOBALS["___mysqli_ston"], "INSERT INTO messages(`uid`,`dtime`,`message`) VALUES({$acc[1]},'".date("Y-m-d H:i:s")."','ERROR Funds to forward aren\'t enough to pay the network fee. Amount remains in your account!')");                             
                     }else{
                         $txid = $b[$x]->sendfrom($config['central_account']['value'],$act['forward_to'],$txamount,(int)$config['confirmations']['value']);
                         $nextBal = $newBal - $txamount;    
@@ -100,5 +102,5 @@
       }//Forward EOF
   }//Deposits EOF
   
-
+}
 ?>
