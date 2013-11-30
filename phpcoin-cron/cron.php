@@ -40,7 +40,7 @@
       $newBal = $prevBal + $a;
       //Get the current block
       $cBlock = $b[$x]->getblockcount();      
-      mysqli_query($GLOBALS["___mysqli_ston"], "INSERT INTO movements(`account_id`,`dtime`,`description`,`amount`,`credit`,`balance`,`txblock`) VALUES({$act['id']},'".date("Y-m-d H:i:s")."','Bitcoin deposit',$a,1,$newBal,$cBlock)");
+      mysqli_query($GLOBALS["___mysqli_ston"], "INSERT INTO movements(`account_id`,`dtime`,`description`,`amount`,`credit`,`balance`,`txblock`) VALUES({$act['id']},'".date("Y-m-d H:i:s")."','{$coin_list[$x]} deposit',$a,1,$newBal,$cBlock)");
       mysqli_query($GLOBALS["___mysqli_ston"], "UPDATE accounts SET balance = balance + $a WHERE id = {$act['id']}");
       
       //Check if account is forwarded
@@ -74,7 +74,7 @@
                        $prevBal = $pbal['balance'];
                    }
                    $newBal = $prevBal + $a;                    
-                   mysqli_query($GLOBALS["___mysqli_ston"], "INSERT INTO movements(`account_id`,`dtime`,`description`,`amount`,`credit`,`balance`,`txblock`) VALUES({$receiver['id']},'".date("Y-m-d H:i:s")."','Bitcoin forward',$a,1,$newBal,$cBlock)");
+                   mysqli_query($GLOBALS["___mysqli_ston"], "INSERT INTO movements(`account_id`,`dtime`,`description`,`amount`,`credit`,`balance`,`txblock`) VALUES({$receiver['id']},'".date("Y-m-d H:i:s")."','{$coin_list[$x]} forward',$a,1,$newBal,$cBlock)");
                    mysqli_query($GLOBALS["___mysqli_ston"], "UPDATE accounts SET balance = balance + $a WHERE id = {$receiver['id']}");                    
                     
                 }
@@ -94,7 +94,7 @@
                         $fee -= $txinfo['fee'];
                         $nextBal -= $fee;
                         if($fee > 0){
-                            mysqli_query($GLOBALS["___mysqli_ston"], "INSERT INTO movements(`account_id`,`dtime`,`description`,`amount`,`credit`,`balance`,`txblock`) VALUES({$act['id']},'".date("Y-m-d H:i:s")."','Bitcoin Network Fee',$fee,0,$nextBal,$cBlock)");
+                            mysqli_query($GLOBALS["___mysqli_ston"], "INSERT INTO movements(`account_id`,`dtime`,`description`,`amount`,`credit`,`balance`,`txblock`) VALUES({$act['id']},'".date("Y-m-d H:i:s")."','{$coin_list[$x]} Network Fee',$fee,0,$nextBal,$cBlock)");
                             mysqli_query($GLOBALS["___mysqli_ston"], "UPDATE accounts SET balance = balance - $fee WHERE id = {$act['id']}");                                           
                         }
                     }

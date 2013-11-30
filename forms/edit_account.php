@@ -19,7 +19,7 @@
 <div id="mainBodyLMenu">
     <h2>Editing Account</h2>
       <p>NOTE:<br>
-      if you activate funds forwarding to an address outside this server, upon forwarding a bitcoin network fee of 0.0005 
+      if you activate funds forwarding to an address outside this server, upon forwarding a network fee of 0.0005 
       <?php
             for ($x=0; $x < count($coin_list); $x++){
                 if ($account_to_edit['account_type'] == $coin_code[$x]){

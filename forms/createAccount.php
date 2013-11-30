@@ -18,9 +18,9 @@
 <div id="mainBodyLMenu">
     <h2>Create Account</h2>
       <p>NOTE:<br>
-      if you activate funds forwarding to an address outside this server, upon forwarding a bitcoin network fee of 0.0005 BTC will be held.<br>
+      if you activate funds forwarding to an address outside this server, upon forwarding a network fee of 0.0005 will be held.<br>
       If the transfer didn't pay fee, the held funds will remain in your account.<br>
-      Transfers bellow 0.0005 BTC will not be forwarded!</p>
+      Transfers bellow 0.0005 will not be forwarded!</p>
     <form action="index.php" method="post" onsubmit="return updateSettings(this)">
     <input type="hidden" name="f" value="doCreateAccount">
         <div class="formLine">

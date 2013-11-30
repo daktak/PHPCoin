@@ -43,7 +43,7 @@
     
     if(empty($e)){
         $system_account = $b[$account_num]->getbalance($config['central_account']['value'],(int)$config['confirmations']['value']);
-        if($system_account < $amount) $e[] = "Bitcoind has no coins enough to perform the payment! Contact the site admin!";
+        if($system_account < $amount) $e[] = $coin_list[$account_num]."d has not enough coins to perform the payment! Contact the site admin!";
     }
     
     if(empty($e)){
@@ -103,7 +103,7 @@
                         $fee -= $txinfo['fee'];
                         $new_balance -= $fee;
                         if($fee > 0){
-                            mysqli_query($GLOBALS["___mysqli_ston"], "INSERT INTO movements(`account_id`,`dtime`,`description`,`amount`,`credit`,`balance`,`txblock`) VALUES({$account['id']},'".date("Y-m-d H:i:s")."','Bitcoin Network Fee',$fee,0,$new_balance,$cBlock)");
+                            mysqli_query($GLOBALS["___mysqli_ston"], "INSERT INTO movements(`account_id`,`dtime`,`description`,`amount`,`credit`,`balance`,`txblock`) VALUES({$account['id']},'".date("Y-m-d H:i:s")."','Network Fee',$fee,0,$new_balance,$cBlock)");
                             mysqli_query($GLOBALS["___mysqli_ston"], "UPDATE accounts SET balance = balance - $fee WHERE id = {$account['id']}");                                           
                         }                
             }
