@@ -121,6 +121,8 @@ switch ($coin_code[$x]) {
 	case 'BTC';
 	case 'NMC';
 	case 'LTC';
+	case 'NVC';
+	case 'PPC';
 		break;
 	default;
 		$pair2 = '_btc';
