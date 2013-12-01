@@ -106,7 +106,7 @@
  * @author marinu666
  * @license MIT License - https://github.com/marinu666/PHP-btce-api
  */
-
+if ($btce_price) {
 require_once('btce-api.php');
 $BTCeAPI = new BTCeAPI(
                     /*API KEY:    */    '',
@@ -142,5 +142,6 @@ $q = mysqli_query($GLOBALS["___mysqli_ston"], $sql);
 } catch(BTCeAPIException $e) {
     echo $e->getMessage();
     }
+}
 }
 ?>
