@@ -23,6 +23,8 @@
   //specify each port, eg
   //$btc_port = array("8332","8336","9332");
   $btc_port = array("8332");
+  //pull current prices from btc-e.com
+  $btce_price = true;
   
 //----------------------- NOTHING TO CONFIGURE BELLOW THIS LINE ---------//
   ($GLOBALS["___mysqli_ston"] = mysqli_connect($db_host, $db_user, $db_pass)) || die("Unable to connect to DB!");

@@ -101,6 +101,46 @@
           }
       }//Forward EOF
   }//Deposits EOF
+
+ /*
+ * @author marinu666
+ * @license MIT License - https://github.com/marinu666/PHP-btce-api
+ */
+
+require_once('btce-api.php');
+$BTCeAPI = new BTCeAPI(
+                    /*API KEY:    */    '',
+                    /*API SECRET: */    ''
+                      );
   
+$btc_usd = array();
+//$btc_usd['fee'] = $BTCeAPI->getPairFee('btc_usd');
+// Ticker Call
+$pair2 = '_usd';
+switch ($coin_code[$x]) {
+	case 'BTC';
+	case 'NMC';
+	case 'LTC';
+		break;
+	default;
+		$pair2 = '_btc';
+		break;
+}
+try {
+$pair = strtolower($coin_code[$x]).$pair2;
+$btc_usd = $BTCeAPI->getPairTicker($pair);
+$usd = $btc_usd['ticker']['avg'];
+#print $pair."\t".$usd.PHP_EOL;
+$sql = "SELECT * FROM config WHERE `key` = '{$coin_code[$x]}';";
+$q = mysqli_query($GLOBALS["___mysqli_ston"], $sql);
+if(!mysqli_num_rows($q)){
+   $sql = "INSERT INTO config(`key`,`value`,`explain`) VALUES ('{$coin_code[$x]}','{$usd}','BTC-E {$pair} current price');";
+} else {
+   $sql = "UPDATE config SET `value` = '$usd' WHERE `key` = '{$coin_code[$x]}';";
+}
+$q = mysqli_query($GLOBALS["___mysqli_ston"], $sql);
+} catch(BTCeAPIException $e) {
+    echo $e->getMessage();
+    }
 }
 ?>
