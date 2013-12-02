@@ -1,6 +1,34 @@
 <?php
     defined("_V") || die("Direct access not allowed!");
     include("menus/menus.php");
+             for ($x=0; $x < count($coin_list); $x++){
+               if ($account_to_edit['account_type'] == $coin_code[$x]){
+	       	$code = $coin_code[$x];
+		$num = $x;
+                }
+
+                #echo "<option value='".$x."'>".$coin_code[$x]."</option>".PHP_EOL;
+             } 
+
+switch ($code) {
+	case 'BTC';
+	case 'NMC';
+	case 'LTC';
+		$pair2 = 'USD';
+		break;
+	default;
+		$pair2 = 'BTC';
+		break;
+}
+$pref = '';
+if ($pair2 == 'USD') {
+    $pref='$';
+}
+        $sql = "SELECT `value` FROM config WHERE `key` = '".$code."';";
+	$q = mysqli_query($GLOBALS["___mysqli_ston"], $sql);
+	while($r = mysqli_fetch_assoc($q)){
+	     $rate = $r['value'];
+	}
 ?>
 <div id="mainBodyLMenu">
 <h2>Send Coins</h2>
@@ -24,6 +52,16 @@
         return true;        
         
     }
+    window.onload=function(){
+    var input = document.getElementById('amount');
+    input.onkeyup = function () {
+        var result = document.getElementById('usd');
+        result.innerHTML = "<?php echo $pref; ?>"+eval(this.value*<?php echo $rate; ?>)+" <?php echo $pair2; ?>";
+    };
+
+    //evaluate initial value
+    //input.onkeyup();
+    }
 </script>
 <p>The maximum amount you can withdraw is <strong><?php echo number_format($available,8,".",",");?></strong></p>
 <form method="post" action="index.php" onsubmit="return validateWithdraw(this)">
@@ -34,15 +72,10 @@
     </div>
     <div class="formLine">
         <label>Amount</label>
-        <input type="text" style="text-align: right;" name="amount" size="10">
-	<?php 
-            for ($x=0; $x < count($coin_list); $x++){
-               if ($account_to_edit['account_type'] == $coin_code[$x]){
-                echo $coin_code[$x];
-                }
-        }
-
+        <input type="text" style="text-align: right;" name="amount" size="10" id="amount">
+	<?php echo $code;
 	?>
+	<span id="usd"></span>
     </div>  
         <div class="formLine">
             <label>Your Password</label>
@@ -51,16 +84,11 @@
        <div class="formLine">
              <label>Account Type</label>
              <select name="account_type">
-             <?php
-             for ($x=0; $x < count($coin_list); $x++){
-               if ($account_to_edit['account_type'] == $coin_code[$x]){
-                echo "<option value='".$x."'";
+	     <?php
+                echo "<option value='".$num."'";
                         echo " selected";
-                echo ">".$coin_code[$x]."</option>".PHP_EOL;
-                }
-
-                #echo "<option value='".$x."'>".$coin_code[$x]."</option>".PHP_EOL;
-             } ?>
+                echo ">".$code."</option>".PHP_EOL;
+              ?>
              </select>
         </div>
         <div class="formLine">

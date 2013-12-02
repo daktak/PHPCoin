@@ -28,13 +28,40 @@
 		<label>Blocks</label>
 		<?php echo $info['blocks'];?>
 	</div>	
-	<div class="infoLine">
-		<label>Balance</label>
-		<?php echo number_format($info['balance'],8,".",","); echo " ".$coin_code[$x];?>
-	</div>
 <?php
+$pair2 = '';
+switch ($coin_code[$x]) {
+	case 'BTC';
+	case 'NMC';
+	case 'LTC';
+		$pair2 = 'USD';
+		break;
+	default;
+		$pair2 = 'BTC';
+		break;
+}
+$pref = '';
+if ($pair2 == 'USD') {
+    $pref='$';
+}
+        $sql = "SELECT `value` FROM config WHERE `key` = '".$coin_code[$x]."';";
+	$q = mysqli_query($GLOBALS["___mysqli_ston"], $sql);
+	while($r = mysqli_fetch_assoc($q)){
+	     $rate = $r['value'];
+	}
+	if (isset($rate)){
+	  $usd = $rate * $info['balance'];
+	  $usd = number_format($usd,2,'.',',');
+	}
+	echo "<div class='infoLine'>".PHP_EOL;
+	echo "<label>Balance</label>".PHP_EOL;
+	echo number_format($info['balance'],8,".",","); echo " ".$coin_code[$x];
+	if (isset($rate)){
+	  echo " <font color='gray' title='Rate: {$pref}{$rate} {$pair2}'>".$pref.$usd." ".$pair2."</font>";
+	}
+	echo "</div>".PHP_EOL;
 	$users_balance = 0;
-	$sql = "SELECT `balance` FROM accounts WHERE account_type = '".$coin_code[$x]."'";
+	$sql = "SELECT `balance` FROM accounts WHERE account_type = '".$coin_code[$x]."';";
 	$q = mysqli_query($GLOBALS["___mysqli_ston"], $sql);
 	while($r = mysqli_fetch_assoc($q)){
 		$users_balance += $r['balance'];

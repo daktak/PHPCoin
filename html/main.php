@@ -90,10 +90,44 @@ echo <<<END
     <div class="infoLine">
         <label>Balance</label>
  
-        <strong>
 END;
+switch ($coin_code[$x]) {
+	case 'BTC';
+	case 'NMC';
+	case 'LTC';
+		$pair2 = 'USD';
+		break;
+	default;
+		$pair2 = 'BTC';
+		break;
+}
+$pref = '';
+if ($pair2 == 'USD') {
+    $pref='$';
+}
+        $sql = "SELECT `value` FROM config WHERE `key` = '".$coin_code[$x]."';";
+	$q = mysqli_query($GLOBALS["___mysqli_ston"], $sql);
+	while($r = mysqli_fetch_assoc($q)){
+	     $rate = $r['value'];
+	}
+	if (isset($rate)) {
+	$usd = $rate * $accountBalance;
+	$usd = number_format($usd,2,'.',',');
+	$incomming = $b[$x]->getbalance($_SESSION['btaccount'],0) * $rate;
+
+	}
+
+   	 echo "<strong>".PHP_EOL;
 	 echo number_format($accountBalance,8,".",",");
-	 echo " ".$coin_code[$x]."</strong>  <small><i>";
+	 echo " ".$coin_code[$x]."</strong>".PHP_EOL;
+	 if (isset($rate)) {
+	   echo " <font color='gray' title='Rate: {$pref}{$rate} {$pair2}'>".$pref.$usd." ".$pair2."</font>";
+	 }
+	 echo " <small><i";
+	 if(isset($incomming)) {
+	 echo "title='{$pref}{$incomming} {$pair2}'";
+	 } 
+	 echo ">"; 
 	 echo number_format($b[$x]->getbalance($_SESSION['btaccount'],0),8,".",".");
 	 echo $coin_code[$x];
 	 $coin_sufx = $coin_code[$x];
@@ -130,9 +164,9 @@ END;
         <td><?php echo $r['dtime'];?></td>
         <td><?php echo stripslashes($r['description']);?></td>
         <td align="right"><?php echo $r['txblock'];?> (<?php echo $cBlock - $r['txblock'];?> conf.)</td>
-        <td align="right"><?php echo $r['credit'] == 1 ? "&nbsp;" : number_format($r['amount'],8,".",",") . " ".$coin_sufx;?></td>
-        <td align="right"><?php echo $r['credit'] == 0 ? "&nbsp;" : number_format($r['amount'],8,".",",") . " ".$coin_sufx;?></td>
-        <td align="right"><?php echo number_format($r['balance'],8,".",",") . " ".$coin_sufx;?></td>
+        <td align="right"<?php if ($r['credit'] == 1 ) { echo ">&nbsp;"; } else { if (isset($rate)) { echo " title='".$pref.number_format($r['amount']*$rate,2,".",",")." ".$pair2."'";} echo ">".number_format($r['amount'],8,".",",") . " ".$coin_sufx;}?></td>
+        <td align="right"<?php if ($r['credit'] == 0 ) { echo ">&nbsp;"; } else { if (isset($rate)) { echo " title='".$pref.number_format($r['amount']*$rate,2,".",",")." ".$pair2."'";} echo ">".number_format($r['amount'],8,".",",") . " ".$coin_sufx;}?></td>
+        <td align="right"<?php if (isset($rate)) { echo " title='".$pref.number_format($r['balance']*$rate,2,".",",")." ".$pair2."'";} echo ">".number_format($r['balance'],8,".",",") . " ".$coin_sufx;?></td>
      </tr>
 <?php        
         $k = 1 - $k;

@@ -39,6 +39,25 @@
     while($r = mysqli_fetch_assoc($q)){
         $total_accounts += $r['balance'];
         $accounts++;
+switch ($coin_code[$x]) {
+	case 'BTC';
+	case 'NMC';
+	case 'LTC';
+		$pair2 = 'USD';
+		break;
+	default;
+		$pair2 = 'BTC';
+		break;
+}
+$pref = '';
+if ($pair2 == 'USD') {
+    $pref='$';
+}
+        $sql = "SELECT `value` FROM config WHERE `key` = '".$coin_code[$x]."';";
+	$q = mysqli_query($GLOBALS["___mysqli_ston"], $sql);
+	while($z = mysqli_fetch_assoc($q)){
+	     $rate = $z['value'];
+	}
 ?>
     <tr class="listingRow<?php echo $k;?>">
         <td align="right"><?php echo $r['account_id'];?></td>
@@ -47,7 +66,13 @@
         <img src="icon/<?php echo $r['forward'] == 1 ? 'tick.png' : 'cross.png';?>" border="0" title="<?php echo $r['forward'] == 1 ? 'Yes' : 'No';?>" alt="<?php echo $r['forward'] == 1 ? 'Yes' : 'No';?>">
         </td>
         <td><?php echo $r['forward'] == 1 ? $r['forward_to'] : "<i>not forwarded</i>";?></td>
-        <td align="right"><?php echo number_format($r['balance'],8,".",","); echo " ".$coin_code[$x];?></td>
+        <td align="right"<?php 
+	if (isset($rate)){
+	echo " title='".$pref.number_format($r['balance']*$rate,2,".",",")." ".$pair2."'";
+	}
+	echo ">".number_format($r['balance'],8,".",","); 
+	echo " ".$coin_code[$x];
+	?></td>
         <td>
         <img src="icon/blue-document--pencil.png" border="0" title="Edit account" style="cursor: pointer;" onclick="document.location.href='index.php?f=editAccount&amp;account_id=<?php echo $r['id'];?>'" alt="Edit Account">
         </td>
@@ -58,7 +83,11 @@
     }
 ?>    
 </table>
-<h4>Total amount in accounts: <?php echo number_format($total_accounts,8,".",","); echo " ".$coin_code[$x];?></h4>
+<h4>Total amount in accounts: <?php echo number_format($total_accounts,8,".",","); echo " ".$coin_code[$x];
+if (isset($rate)) {
+echo " <font color='gray' title='Rate: {$pref}{$rate} {$pair2}'>".$pref.number_format($total_accounts*$rate,2,".",",")." ".$pair2."</font>";
+}
+?></h4>
 <?php
 }
 ?>
