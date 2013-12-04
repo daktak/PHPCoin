@@ -78,7 +78,7 @@
         </div>        
         <div class="formLine">
             <label>&nbsp;</label>
-            <input type="button" value="Log In" onclick="doLogin()" id="btnSubmit" class="inputButton">
+            <input type="submit" value="Log In" onclick="doLogin()" id="btnSubmit" class="inputButton">
         </div>
      </form>                   
     </div>
