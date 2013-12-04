@@ -10,16 +10,7 @@
                 #echo "<option value='".$x."'>".$coin_code[$x]."</option>".PHP_EOL;
              } 
 
-switch ($code) {
-	case 'BTC';
-	case 'NMC';
-	case 'LTC';
-		$pair2 = 'USD';
-		break;
-	default;
-		$pair2 = 'BTC';
-		break;
-}
+$pair2 = get_price_unit($code);
 $pref = '';
 if ($pair2 == 'USD') {
     $pref='$';

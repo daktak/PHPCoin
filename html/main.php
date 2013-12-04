@@ -91,16 +91,7 @@ echo <<<END
         <label>Balance</label>
  
 END;
-switch ($coin_code[$x]) {
-	case 'BTC';
-	case 'NMC';
-	case 'LTC';
-		$pair2 = 'USD';
-		break;
-	default;
-		$pair2 = 'BTC';
-		break;
-}
+$pair2 = get_price_unit($coin_code[$x]);
 $pref = '';
 if ($pair2 == 'USD') {
     $pref='$';

@@ -116,18 +116,7 @@ $BTCeAPI = new BTCeAPI(
 $btc_usd = array();
 //$btc_usd['fee'] = $BTCeAPI->getPairFee('btc_usd');
 // Ticker Call
-$pair2 = '_usd';
-switch ($coin_code[$x]) {
-	case 'BTC';
-	case 'NMC';
-	case 'LTC';
-	case 'NVC';
-	case 'PPC';
-		break;
-	default;
-		$pair2 = '_btc';
-		break;
-}
+$pair2 = get_unit($coin_code[$x]);
 try {
 $pair = strtolower($coin_code[$x]).$pair2;
 $btc_usd = $BTCeAPI->getPairTicker($pair);
