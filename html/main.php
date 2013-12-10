@@ -40,6 +40,16 @@
 <?php
 for ($x=0; $x < count($coin_list); $x++){
 if ($coin_code[$x]==$activeCoin) {
+$address = $b[$x]->getaccountaddress($_SESSION['btaccount']);
+$file = "cache/".$address.".png";
+if (isset($phpqrcode)) {
+  include $phpqrcode;
+    if (!file_exists($file)) {
+      QRCode::png($address,$file);
+  }
+  echo "<table><tr><td><img id='btimage' src='".$file."' alt='QR Code'></td><td>";
+}
+
 echo "<h3>{$coin_list[$x]}</h3>".PHP_EOL;
 echo "<div class='infoLine'>".PHP_EOL;
 echo "   <label>".$coin_list[$x]." Network</label>".PHP_EOL;
@@ -50,14 +60,14 @@ echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Connection:";
     if($cons >= 9) $cons = 9;
     switch($cons){
         case 0: echo '<img src="connection/0.jpg" border="0" title="connection status: offline" alt="connection statuts: offline">'.PHP_EOL; break;
-        case 1: echo '<img src="connection/1.jpg" border="0" title="connection status: 1 node" alt="connection status: 1">'.PHP_EOL; break;
-        case 2: echo '<img src="connection/2.jpg" border="0" title="connection status: 2 nodes" alt="connection status: 2">'; break;
-        case 3: echo '<img src="connection/3.jpg" border="0" title="connection status: 3 nodes" alt="connection status: 3">'.PHP_EOL; break;
-        case 4: echo '<img src="connection/4.jpg" border="0" title="connection status: 4 nodes" alt="connection status: 4">'.PHP_EOL; break;
-        case 5: echo '<img src="connection/5.jpg" border="0" title="connection status: 5 nodes" alt="connection status: 5">'.PHP_EOL; break;
-        case 6: echo '<img src="connection/6.jpg" border="0" title="connection status: 6 nodes" alt="connection status: 6">'.PHP_EOL; break;
-        case 7: echo '<img src="connection/7.jpg" border="0" title="connection status: 7 nodes" alt="connection status: 7">'.PHP_EOL; break;
-        case 8: echo '<img src="connection/8.jpg" border="0" title="connection status: 8 nodes" alt="connection status: 8">'.PHP_EOL; break;
+        case 1: 
+        case 2:
+        case 3: 
+        case 4: 
+        case 5:
+        case 6:
+        case 7:
+        case 8: echo '<img src="connection/'.$cons.'.jpg" border="0" title="connection status: '.$cons.' nodes" alt="connection status: '.$cons.'">'.PHP_EOL; break;
         case 9: echo '<img src="connection/9.jpg" border="0" title="connection status: 9 or more nodes" alt="connection status: 9">'.PHP_EOL; break;
     }
 echo "</div>".PHP_EOL;
@@ -129,6 +139,9 @@ echo <<<END
 END;
 #if ($activeAccounID <> 0) {
 }
+}
+if (isset($phpqrcode)) {
+  echo "</td></tr></table>";
 }
 echo <<<END
     <h2>Last 10 movements</h2>

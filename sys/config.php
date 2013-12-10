@@ -25,6 +25,9 @@
   $btc_port = array("8332");
   //pull current prices from btc-e.com
   $btce_price = true;
+  //location of phpqrcode, comment out to prevent generation of qr codes
+  //cache dir must be writable by php-fpm (owned by apache)
+  $phpqrcode = "phpqrcode/phpqrcode.php"
   
 //----------------------- NOTHING TO CONFIGURE BELLOW THIS LINE ---------//
   ($GLOBALS["___mysqli_ston"] = mysqli_connect($db_host, $db_user, $db_pass)) || die("Unable to connect to DB!");

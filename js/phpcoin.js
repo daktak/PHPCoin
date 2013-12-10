@@ -9,6 +9,7 @@ function changeMyAddress(obj,abc){
         success: function(data){
             if(data.substr(0,4) != "ERR"){
 	        $("#btaddress"+abc).html(data);
+		document.getElementById("btimage").src = "cache/"+data+".png";
 
             }else{
                 alert(data.substr(4));
