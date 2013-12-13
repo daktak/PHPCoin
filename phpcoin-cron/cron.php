@@ -29,7 +29,9 @@
       $q = mysqli_query($GLOBALS["___mysqli_ston"], $sql);
       if(!mysqli_num_rows($q)) continue; //Account not found
       $act = mysqli_fetch_assoc($q);
-      $b[$x]->move($k,$config['central_account']['value'],$a);
+      if ($config['central_account']['value'] > 0) {
+          $b[$x]->move($k,$config['central_account']['value'],$a);
+      }
       $prevBal = 0;
       $sql = "SELECT balance FROM movements WHERE account_id = {$act['id']} ORDER BY id DESC LIMIT 0,1";
       $q = mysqli_query($GLOBALS["___mysqli_ston"], $sql);
